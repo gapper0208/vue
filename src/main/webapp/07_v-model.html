@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+</head>
+<body>
+	<div id="d1">
+		<p>{{msg}}</p>
+		
+		<input type="text" v-model="msg" />
+	</div>
+	<script>
+		var vm = new Vue({
+			el:"#d1",
+			data:{
+				msg:"好好学习，天天向上，别浪~"
+			}
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+<script src="https://cdn.bootcss.com/vue-router/3.1.3/vue-router.min.js"></script>
+</head>
+<body>
+	
+	<!-- 
+		一进入页面时，就通过路由立刻显示某个组件
+	 -->
+	<div id="app">
+		<router-link to="/login">登录</router-link>
+		<router-link to="/register">注册</router-link>
+		<router-view></router-view>
+	</div>	
+
+	<script>
+		var login = {
+			template: "<h3>登录组件</h3>"	
+		};
+		var register = {
+			template: "<h3>注册组件</h3>"	
+		};
+		var routerObj = new VueRouter({
+			routes: [
+				/*
+					因为一进入页面时，地址栏中的地址就是“#/”
+					所以我们干脆也让路由监听“#/”这个地址好了！
+					
+					这样，一进入页面就会看到login组件了！
+				*/
+				{path:'/', component: login},
+				{path:"/login",component: login},
+				{path:"/register",component: register}
+			]
+		});
+		
+		var app = new Vue({
+			el:"#app",
+			data:{},
+			methods:{},
+			router:routerObj	
+		});
+	</script>
+</body>
+</html>

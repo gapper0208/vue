@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+</head>
+<body>
+	<div id="app">
+		<div id="dd">{{msg}}</div>
+		<button type="button" @click="f1">修改data</button>
+		<button type="button" @click="f2">销毁Vue实例</button>
+	</div>
+	<script>
+		var vm = new Vue({
+			el:"#app",
+			data: {
+				msg:'来自天堂的魔鬼'
+			},
+			methods: {
+				show() {
+					console.log('执行了show方法');
+				},
+				f1() {
+					this.msg = '不再联系';
+				},
+				f2() {
+					this.$destroy();
+				}
+			},
+			beforeCreate() { // 在beforeCreate函数执行的时候，data和methods中的数据还没有初始化好
+				console.log('beforeCreate');
+			},
+			created() { // 在created函数执行的时候，data和methods中的数据已经初始化好了
+				console.log('created'); 
+			},
+			beforeMount() {	// 在beforeMount函数执行的时候，Vue在内存中已经编译完了所绑定的元素内容，但是还没有替换掉页面上的“el”
+				var app = document.getElementById("app");
+				console.log("beforeMount:" + app.innerHTML);
+			},
+			mounted() { // 在mounted函数执行的时候，Vue已经完成了渲染DOM的工作，至此整个Vue实例已经实例化完毕！
+				var app = document.getElementById("app");
+				console.log("mounted:" + app.innerHTML);
+			},
+			beforeUpdate() { // 在beforeUpdate函数执行的时候，Vue实例中的data数据已经被更新了，但是界面还没有更新
+				console.log('beforeUpdate data中的msg:' + this.msg);
+				var dd = document.getElementById("dd");
+				console.log("beforeUpdate dd元素中的内容：" + dd.innerHTML);
+			},
+			updated() { // updated的执行时机是：data数据已经更新了，并且也更新了内存中的DOM，并且也渲染了页面！
+				console.log('updated data中的msg:' + this.msg);
+				var dd = document.getElementById("dd");
+				console.log("updated dd元素中的内容：" + dd.innerHTML);
+			},
+			beforeDestroy() { // 此时实例上绑定的data、methods、过滤器和指令都处于可用状态，还没有真正地开始销毁的过程
+				console.log("beforeDestroy");				
+			},
+			destroyed() { // 当执行到destroy函数的时候，Vue组件已经完全被销毁了，此时组件中的data、methods、过滤器和指令都已经不可使用了！
+				console.log("destroyed");
+			}
+		});
+	</script>
+</body>
+</html>

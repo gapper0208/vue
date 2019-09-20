@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+</head>
+<body>
+	<!-- Vue不提倡我们直接操作DOM元素，那我们能不能在Vue中获取一个DOM元素呢？答案是肯定的，如下 -->
+	<div id="app">
+		<button type="button" @click="f1">点点</button>
+		<h3 id="hh">Good Boy</h3>
+	</div>	
+	<script>
+		var app = new Vue({
+			el:"#app",
+			methods: {
+				f1() {
+					/*
+						虽然Vue不提倡我们直接操作DOM，但这毕竟是js的语法，
+						我们当然可以通过js原生语法来获取DOM元素了！
+						
+						不过既然Vue不提倡我们操作DOM，那么它一定提供了自己的
+						方式来操作DOM元素！
+					*/
+					var elt = document.getElementById("hh");
+					console.log(elt.innerHTML);
+				}
+			}
+		});
+	</script>
+</body>
+</html>

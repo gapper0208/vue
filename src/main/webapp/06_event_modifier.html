@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+<style>
+	#d3{width:100px;height:100px;border:#000 solid 1px;}
+</style>
+</head>
+<body>
+	<div id="d1" @click="f1">
+		<button @click="f2">冒泡吧，事件！</button>
+		<!-- stop，停止事件冒泡 -->
+		<button @click.stop="f2">冒不了泡了</button>
+		
+		<!-- prevent，组织默认事件 -->
+		<a href="http://www.baidu.com/" @click.prevent.stop="f3">百度一下，你就知道</a>
+		
+		<!-- capture，事件由外而内地触发 -->
+		<div @click.capture="f1">
+			<button @click.stop="f2">沉底吧，事件！</button>
+		</div>
+	</div>
+	
+	<!-- self，只有事件发生在自己身上才触发 -->
+	<div id="d2" @click.self="f1" style="width:200px;height:200px;background-color:lightpink">
+		<!-- once，事件只触发一次 -->
+		<button @click.once="f2">哈哈</button>
+	</div>
+		
+	<script>
+		var methods =  {
+				f1() {
+					console.log("鼠标点击div");
+				},
+				f2() {
+					console.log("鼠标点击button");
+				},
+				f3() {
+					console.log("鼠标点击超链接");
+				}
+			};
+	
+		var vm = new Vue({
+			el:"#d1",
+			data: {
+			},
+			methods:methods
+		});
+		
+		var vm2 = new Vue({
+			el:"#d2",
+			data: {
+			},
+			methods:methods
+		});
+		
+	</script>
+</body>
+</html>
+
+

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+	[v-cloak] {
+		display:none;
+	}
+</style>
+</head>
+<body>
+	<div  id="app">
+		<!-- 有闪烁问题 -->
+		<p> +++ {{msg}} --- </p>
+	
+		<!-- v-cloak能够解决“插值表达式”的闪烁问题，不会覆盖原来的元素内容  -->
+		<p v-cloak> +++ {{msg}} --- </p>
+		
+		<!-- v-text也能够解决“插值表达式”的闪烁问题，且会覆盖原来的元素内容  -->
+		<p v-text="msg"></p>
+		<p v-text="msg">=====</p>
+		
+		<!-- v-text和{{ }}都不会解析html代码 -->
+		<p>{{msg2}}</p>
+		<p v-text="msg2"></p>
+		
+		<!-- v-html可以解析html代码  -->
+		<p v-html="msg2"></p>
+		
+	</div>	
+	
+	<!-- 故意把引入Vue资源的代码写在模板之下，以引出“插值表达式的闪烁问题” -->
+	<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+	
+	<script>
+		alert('pause');
+	
+		var vm = new Vue({
+			el:"#app",
+			data: {
+				msg:'阿弥陀佛!',
+				msg2:'<h2>文殊菩萨</h2>'
+			}
+		});
+	</script>
+</body>
+</html>

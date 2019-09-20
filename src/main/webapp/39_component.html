@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+</head>
+<body>
+	<!-- 
+		如果子组件非要使用父组件的data并不是不可能！ 那就按以下步骤来
+	-->
+	<div id="app">
+		<!-- 1. 为子组件绑定一个自定义属性，且把父组件的属性绑定到这个子组件的自定义属性上 -->
+		<my-component v-bind:parentmsg="msg"></my-component>
+	</div>
+	
+	<script>
+		var app = new Vue({
+			el:"#app",
+			data: {
+				msg: "原来你才是天堂"
+			},
+			components: {
+				"myComponent": {
+					// 2. 在组件对象中，添加一个props属性，该属性的值是一个数组，数组元素的值恰恰就是子组件自定义属性的名字
+					props: ["parentmsg"],
+					// 3. 这样，在子组件的模板中，就可以使用自定义属性了，这个自定义属性的值就是父组件的属性传来的值
+					template:"<h3> andy +++ {{parentmsg}} --- </h3>"
+				}
+			}
+		});
+	</script>
+	
+	<!-- 注意，组件中的所有 props 中的元素值，都是通过父组件传递进来的！ -->
+	
+	<!-- 
+		那么问题来了，组件也可以有自己的data，那么组件的data与props有何区别？
+		1. 组件的data属性中，封装的都是组件自己私有的数据；props中封装的都是父组件传来的属性
+		2. data中的数据，都是可读可写的；props中的数据虽然也是可读可写的，但是Vue官方建议，最好不要修改props中的数据（取而代之，可以使用data）
+	 -->
+
+</body>
+</html>

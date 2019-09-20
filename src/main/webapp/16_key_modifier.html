@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+</head>
+<body>
+	<div id="app">
+	
+		<!-- 13就是回车按键对应的数字 -->
+		<input type="text" @keyup.13="foo" /> 
+		
+		<!-- 
+			但是记住所有的keyCode是比较困难的，所以vue为最常用的按键提供了别名
+			.enter	.tab	.delete		.esc	.space	.up		.down	.left	.right
+		 -->
+		 <input type="text" @keyup.enter="foo" /> 
+		 
+		 <!-- 
+		 	如果我们想使用的按键为f2，但是vue并没有为f2这个按键起别名，这时我们可以直接绑定f2按键对应的数字：113
+		  -->
+		  <input type="text" @keyup.113="foo" /> 
+			
+		  <!-- Vue.config.keyCodes.f2=113; -->	
+		  <input type="text" @keyup.f2="foo" /> 	  
+	</div>
+	<script>
+	
+		// Vue也为我们提供了一个接口，可以自定义全局按键修饰符
+		Vue.config.keyCodes.f2=113;
+		
+		var vm = new Vue({
+			el:"#app",
+			data:{
+				msg:'张珊珊'
+			},
+			methods: {
+				foo() {
+					console.log('等下一个他..');
+				}
+			}
+		});
+	</script>
+</body>
+</html>

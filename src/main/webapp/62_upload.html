@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+<script src="https://cdn.bootcss.com/vue-resource/1.5.1/vue-resource.min.js"></script>
+</head>
+<body>
+	<div id="app">
+		photo:<input ref="photo"  type="file" />
+		
+		<button type="button" @click="upload">上传</button>
+	</div>
+	
+	<script>
+		var vue = new Vue({
+			el:"#app",
+			methods: {
+				upload() {
+					
+					// 毕竟，下面要发起的是ajax请求， ajax请求，如何把文件的2进制发送给服务器呢？
+					// 就需要借助于formData对象，formData就是用来“模拟正规的表单数据的” “模拟正规的表单数据的” “模拟正规的表单数据的”
+					// 也就是只要使用了formData，就好像在使用表单来提交数据一样的
+					var formData = new window.FormData();
+					// 模拟：<input type="text" name="name" value="andy..." />
+					// formData.append("name", "andy...");
+					// 模拟：<input name="photo" type="file" />
+					var photoInput = this.$refs.photo;
+					formData.append("photo", photoInput.files[0]);
+					this.$http.post("http://localhost/users/upload", formData);
+					
+					
+				}
+			}
+		});
+	</script>
+</body>
+</html>

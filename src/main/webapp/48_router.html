@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+<script src="https://cdn.bootcss.com/vue-router/3.1.3/vue-router.min.js"></script>
+</head>
+<body>
+	
+	<!-- 
+		直接在浏览器地址栏中键入路由监听的路径，是不合适的，下面我们用一种更为方便的方式来操作路由所监听的路径：
+	 -->
+	<div id="app">
+		<!-- 注意，路由监听的路径必须以#开头！ -->
+		<a href="#/login">登录</a>
+		<a href="#/register">注册</a>
+		
+		<!-- 
+			也可以使用router-link 
+			注意
+				1. 此时路由监听的路径不必以#开头！
+				2. 且router-link会被渲染为a元素，可通过tag属性来指定要把router-link渲染为什么元素
+		-->
+		<router-link to="/login">登录啊</router-link>
+		<router-link to="/register">注册啊</router-link>
+		<router-view></router-view>
+	</div>	
+
+	<script>
+		var login = {
+			template: "<h3>登录组件</h3>"	
+		};
+		var register = {
+			template: "<h3>注册组件</h3>"	
+		};
+		var routerObj = new VueRouter({
+			routes: [
+				{path:"/login",component: login},
+				{path:"/register",component: register},
+			]
+		});
+		
+		var app = new Vue({
+			el:"#app",
+			data:{},
+			methods:{},
+			router:routerObj	
+		});
+	</script>
+</body>
+</html>

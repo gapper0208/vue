@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+</head>
+<body>
+	<div id="app">
+		<button type="button" @click="flag=!flag">toggle</button>
+		<h3 v-if="flag">这是用v-if控制的元素</h3>
+		<h3 v-show="flag">这是用v-show控制的元素</h3>
+	</div>
+	<script>
+		var vm = new Vue({
+			el:"#app",
+			data:{
+				flag:true
+			}
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+<style>
+	.v-enter,.v-leave-to {
+		opacity:0;
+		transform:translateX(80px);
+	}
+	.v-enter-to,.v-leave {
+		opacity:1;
+		transform:translateX(0px);
+	}
+	.v-enter-active, .v-leave-active {
+		transition:all 1s ease
+	}
+	
+	
+	.foo-enter,.foo-leave-to {
+		opacity:0;
+	}
+	.foo-enter-to,.foo-leave {
+		opacity:1;
+	}
+	.foo-enter-active, .foo-leave-active {
+		transition:all 1s ease
+	}
+	
+</style>
+</head>
+<body>
+	<div id="app">
+	
+		<button @click="flag=!flag">点点</button>
+		
+		<transition>
+			<p v-show="flag">孙燕姿</p>
+		</transition>
+		
+		<transition name="foo">
+			<p v-show="flag">邓紫棋</p>
+		</transition>
+	</div>
+	<script>
+		var vue = new Vue({
+			el:"#app",
+			data: {
+				flag:true
+			}
+		});
+	</script>	
+</body>
+</html>

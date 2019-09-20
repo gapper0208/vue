@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+</head>
+<body>
+
+	<!-- 
+		组件中的data
+		像Vue实例可以拥有自己的data一样，Vue组件也可以有自己的data
+		但是，Vue组件的data属性必须是一个function，否则会报错: [Vue warn]: The "data" option should be a function
+		
+		既然Vue组件的data必须是一个function，那么我们把Vue组件的data定义一个function，
+		但是，该function还必须返回一个对象，否则... : vue.js:634 [Vue warn]: data functions should return an object:
+		
+	 -->
+	<div id="app">
+		<my-component></my-component>
+	</div>
+	
+	<template id="foo">
+		<div>
+			<!-- 这里使用的是组件中的属性 -->
+			<h3>{{msg}}</h3>
+		</div>
+	</template>
+
+	<script>
+		
+		var app = new Vue({
+			el:"#app",
+			components: {
+				"myComponent": {
+					template: "#foo",
+					data: function() {
+						return {
+							msg: "白衣少年"
+						}
+					}
+				}
+			}
+		});
+		
+	</script>
+	
+	<!-- 
+		注意，虽然Vue组件的data与Vue实例的data用法是一致的，但是在Vue组件中不能访问Vue实例的data，反之亦然！
+	 -->
+
+</body>
+</html>

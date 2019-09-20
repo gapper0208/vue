@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+</head>
+<body>
+	<!-- 
+		我们已经知道，Vue实例的data，Vue组件是访问不到的（反之亦然），如下
+	-->
+	<div id="app">
+		<my-component></my-component>
+	</div>
+	
+	<script>
+		var app = new Vue({
+			el:"#app",
+			data: {
+				msg: "原来你才是天堂"
+			},
+			components: {
+				"myComponent": {
+					template:"<h3> andy +++ {{msg}} --- </h3>"
+				}
+			}
+		});
+	</script>
+
+</body>
+</html>

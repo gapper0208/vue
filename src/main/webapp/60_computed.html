@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+<script src="https://cdn.bootcss.com/vue-router/3.1.3/vue-router.min.js"></script>
+</head>
+<body>
+	<!--
+		我们已经知道，可以在Vue实例的data中定义属性。
+		其实，除了能在data中定义属性外，还可以在computed中定义属性。
+		
+		在 computed 中定义的属性称之为计算属性，计算属性的本质是一个函数，
+		只不过在使用这些计算属性时候，是把它们直接当做属性来使用的，并不会把计算属性当做方法来使用！
+	-->
+	 <div id="app">
+	 	firstname: <input type="text" v-model="firstname" />
+	 	lastname: <input type="text" v-model="lastname" />
+	 	fullname: <input type="text" v-model="fullname"  />
+	 	
+	 	<button type="button" @click="show">show</button>
+	 </div>
+	 <script>
+	 	var app = new Vue({
+	 		el:"#app",
+	 		data: {
+	 			firstname:'',
+	 			lastname:''
+	 		},
+	 		computed: {
+	 			// 这便是一个“计算属性”
+	 			// 每当firstname和lastname发生变化时，都会回调这个“计算属性”所对应的函数！
+	 			fullname: function() {
+	 				console.log("full...");
+	 				return this.firstname + " " + this.lastname;
+	 			}
+	 		},
+	 		methods: {
+	 			show() {
+	 				console.log(this.fullname);
+	 			}
+	 		}
+	 	});
+	 </script>
+	 
+	 <!-- 
+	 	关于计算属性要注意的地方
+	 	
+		1. 在使用计算属性的时候，不要在计算属性名后面加括号。要把计算属性当做普通属性去使用。（尽管它本质上是一个函数）
+			
+		2. 一旦计算属性所对应的函数中，所用到的任何data中的数据发生了变化，就会立即重新计算这个计算属性的值。（也就是立即执行计算属性所对应的函数）
+			
+		3. 计算属性的计算结果，会被缓存起来，以便后续直接使用；前提是计算属性所对应的函数中所使用到的任何data的数据都没有发生变化。
+		
+		
+		watch、computed、methods的对比
+		
+		
+		computed和watch之间的区别
+		1. computed计算属性对应的函数中必须有一个返回值
+		2. watch对应的函数中，不需要有返回值
+		3. method表示一个具体的操作，主要在其中编写业务逻辑
+	  -->
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+</head>
+<body>
+	<div id="app">
+		<!-- 通过自定义的Vue指令，让username元素直接获取到焦点 -->
+		username:<input type="text" v-focus v-color="'#00b9f1'" v-model="msg" v-italic v-fontsize="30"/><br />
+		password:<input type="text" /><br />
+	</div>
+	<script>
+		// 定义指令名字时，不用在前面加“v-”，但是在使用指令的时候，必须在指令名前面加上“v-”
+		Vue.directive('focus', {
+			// 每当指令绑定到元素上的时候，就会立即执行bind函数，针对于每个元素只执行一次
+			bind:function(el) {
+				el.style.backgroundColor = 'lightgray';
+			},
+			// 当元素插入到DOM中之后(appendChild)，就会执行inserted函数，针对于每个元素只执行一次
+			inserted:function(el) {
+				el.focus();				
+			},
+			// 当VNode更新的时候，就会执行update函数，可以执行多次
+			updated:function(el) {
+			}
+		});
+		
+		
+		Vue.directive('color', {
+			// 通过bind的第二个参数，可以获取的指令后面所写的参数的值。
+			bind:function(el,binding) {
+				el.style.color = binding.value;
+			}
+		});
+	
+		var vm = new Vue({
+			el:"#app",
+			data:{
+				msg:'知否知否'
+			},
+			// 自定义私有指令
+			directives: {
+				'italic': {
+					bind:function(el) {
+						el.style.fontStyle = 'italic';
+					}
+				},
+				// 大多数情况下，我们可能想在bind和update这两个函数上做重复动作，并且不想关心其他的钩子函数，可以这样写：
+				// 该函数等价于同时应用到bind函数和update函数之上
+				'fontsize': function(el,binding) { 	
+					el.style.fontSize = parseInt(binding.value) + "px";
+				}
+			}
+		});
+	</script>
+</body>
+</html>

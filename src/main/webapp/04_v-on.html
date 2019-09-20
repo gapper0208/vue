@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+</head>
+<body>
+	<div  id="app">
+		<button v-on:click="show">点点</button>
+		<button @click="show2">点点2</button>
+	</div>	
+	
+	
+	<script>
+		var vm = new Vue({
+			el:"#app",
+			data: {
+				msg:'你要的全拿走!',
+				mytitle:'胡彦斌'
+			},
+			methods: {
+				show() {
+					alert('香香公主');
+				},
+				show2() {
+					alert('张韶涵');
+				}
+			}
+		});
+	</script>
+</body>
+</html>

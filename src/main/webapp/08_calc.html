@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+</head>
+<body>
+	<div id="d1">
+		<input type="text" v-model="n1" />
+		<select v-model="opt">
+			<option>+</option>
+			<option>-</option>
+			<option>*</option>
+			<option>/</option>
+		</select>
+		<input type="text" v-model="n2" />
+		<button type="button" @click="calc">=</button>
+		<span v-model="n3">{{n3}}</span>
+	</div>
+	<script>
+		var vm = new Vue({
+			el:"#d1",
+			data:{
+				n1:0,
+				opt:'+',
+				n2:0,
+				n3:0,
+			},
+			methods: {
+				calc() {
+					this.n3 = eval(this.n1 + this.opt + this.n2);
+				}
+			}
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+<script src="https://cdn.bootcss.com/vue-resource/1.5.1/vue-resource.min.js"></script>
+</head>
+<body>
+	<div id="app">
+		<table>
+			<tr>
+				<td>id</td>
+				<td>name</td>
+				<td>birthday</td>
+				<td>money</td>
+				<td>操作</td>
+			</tr>
+			<tr v-for="item in list">
+				<td>{{item.id}}</td>
+				<td>{{item.name}}</td>
+				<td>{{item.birthday|dateFormat}}</td>
+				<td>{{item.money}}</td>
+				<td>删除</td>
+			</tr>
+		</table>
+		<button @click="save">save</button>
+		<button @click="del">del</button>
+		<button @click="update">update</button>
+		<button @click="findAll">findAll</button>
+		<button @click="findOne">findOne</button>
+	</div>
+	<script>
+		Vue.filter('dateFormat',function(dateStr) {
+			var dd = new Date(dateStr);
+			var y = dd.getFullYear();
+			var m = dd.getMonth() + 1;
+			var d = dd.getDate();
+			return y+"/"+m+"/"+d;
+		});
+	
+		var vm = new Vue({
+			el:"#app",
+			data: {
+				list:[]
+			},
+			methods: {
+				findAll() {
+					// get请求
+					this.$http.get('http://localhost:8080/fake/users').then(function(result) {
+						this.list = result.body;
+					});
+				},
+				save() {
+					/*
+						post请求
+						第一个是要请求的url地址
+						第二个是请求参数
+						第三个是指定请求参数的格式为：application/x-www-form-urlencoded
+						手动发起的post请求，默认不是表单格式的数据，所有服务器处理不了，所以必须使用这第三个参数，强制浏览器发送表单格式的数据！
+					*/
+					this.$http.post('http://localhost:8080/fake/users', {id:11,name:'andy',birthday:"2010/2/3",money:500}, {emulateJSON:true}).then(function() {
+					});
+				},
+				del() {
+					// delete请求
+					this.$http.post('http://localhost:8080/fake/users', {id:12,"_method":"delete"}, {emulateJSON:true}).then(function() {
+					});
+				},
+				update() {
+					// put请求
+					this.$http.post('http://localhost:8080/fake/users', {id:16,name:'eason',birthday:"2012/12/21",money:1500,"_method":"put"}, {emulateJSON:true}).then(function() {
+					});
+				},
+				findOne() {
+					// put请求
+					this.$http.get('http://localhost:8080/fake/users/66').then(function() {
+					});
+				}
+			}
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+</head>
+<body>
+
+	<div id="app">
+		<my-component></my-component>
+		<my-component></my-component>
+		<my-component></my-component>
+	</div>
+
+	<script>
+		// 上个例子中创建组件的方式，还可以简写为以下形式
+		// 注意，这其实仍然是创建组件的方式一
+		Vue.component("myComponent", Vue.extend({
+			template: "<h3>东方不败</h3>"
+		}));
+		
+		var app = new Vue({
+			el:"#app"
+		});
+	</script>
+
+</body>
+</html>

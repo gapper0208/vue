@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+</head>
+<body>
+
+	<!-- 创建组件的方式三 -->
+	<div id="app">
+		<my-component></my-component>
+	</div>
+	
+	<!-- 
+		1. 必须使用Vue提供的template元素来定义组件的模板 
+		2. 注意template并不是Vue组件的根元素
+		3. 在本例中，template里面的div才是Vue组件的根元素！
+	-->
+	<template id="foo">
+		<div>
+			<h3>Good</h3>
+			<h3>Good</h3>
+		</div>
+	</template>
+
+	<script>
+		Vue.component("myComponent", {
+			template: "#foo"
+		});
+		
+		var app = new Vue({
+			el:"#app"
+		});
+		
+	</script>
+	
+	<!-- 
+		我们已经学习了三种定义Vue组件的方法，这三种方式都是用来定义全局Vue组件的！
+		所谓的全局Vue组件，就是该组件能用于多个Vue的实例中！
+		下面我们将学习如何定义Vue实例的私有组件！
+	 -->
+
+</body>
+</html>

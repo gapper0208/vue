@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+</head>
+<body>
+	<!-- 全局过滤器，可以被不同的Vue实例所使用！-->
+	<div id="app">
+	
+		<p>{{msg|foo}}</p>
+		
+		<p>{{msg|bar('andy','eason')}}</p>
+		
+	</div>
+	
+	<div id="app2">
+	
+		<p>{{msg|foo}}</p>
+		
+		<p>{{msg|bar('巫师3','辐射4')}}</p>
+		
+	</div>
+	
+	<script>
+		// 定义一个过滤器
+		Vue.filter('foo', function(data) {
+			return data + "!!!";
+		});
+		// 定义一个可以接收参数的过滤器
+		Vue.filter('bar', function(data,arg,arg2) {
+			return data + ' -- ' + arg + ' @@ ' + arg2;
+		});
+		
+		var vm = new Vue({
+			el:"#app",
+			data:{
+				msg:'张珊珊'
+			}
+		});
+		
+		var vm2 = new Vue({
+			el:"#app2",
+			data:{
+				msg:'馒头酱'
+			}
+		});
+	</script>
+</body>
+</html>

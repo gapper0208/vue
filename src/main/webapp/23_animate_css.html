@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+<link href="https://cdn.bootcss.com/animate.css/3.7.2/animate.min.css" rel="stylesheet">
+</head>
+<body>
+	<!-- 
+		我们可以在以下网址中，预览animate.css为我们提供的动画效果
+		https://daneden.github.io/animate.css/
+	 -->
+	<div id="app" style="text-align:center;">
+		<button @click="flag=!flag">animate it!</button>
+		<!-- 无论使用哪一种动画，都必须指定animated这个基础的css样式！ -->
+		<transition enter-active-class="animated bounceIn" leave-active-class="animated bounceOut">
+			<div v-show="flag">张曼玉</div>
+		</transition>
+		
+		<transition enter-active-class="zoomIn" leave-active-class="zoomOut">
+			<!-- 
+				也可以直接把animated这个样式加在动画特效的目标元素上，
+				注意，此时在transition元素上，就不用在指定animated样式了！ 
+			-->
+			<div v-show="flag" class="animated">刘德华</div>
+		</transition>
+	</div>
+	<script>
+		var vue = new Vue({
+			el:"#app",
+			data: {
+				flag:true
+			}
+		});
+	</script>	
+</body>
+</html>

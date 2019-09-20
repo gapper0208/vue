@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+</head>
+<body>
+	<!-- 
+		1. 组件的出现，就是为了拆分Vue实例的代码
+		
+		2.组件化和模块化的区别
+			模块化：是从代码逻辑的的角度进行划分的。也就是按分层的方法进行开发，比如web应用三层架构：web+service+dao
+			组件化：是从UI界面的角度进行划分的。便于UI组件的重用
+	 -->
+
+	<div id="app">
+		<!-- 
+			使用组件时：
+			1. 必须把注册组件时的驼峰替换为“-”
+			2. 必须使用双标记
+		 -->
+		<my-component></my-component>
+	</div>
+
+	<script>
+		// 创建组件的方式一，使用Vue.extend创建全局的Vue组件：
+		
+		// 创建组件
+		var component = Vue.extend({
+			template: "<h3>飞雪连天射白鹿，笑书神侠倚碧鸳</h3>"
+		});		
+		// 注册组件
+		Vue.component("myComponent", component);
+		
+		var app = new Vue({
+			el:"#app"
+		});
+	</script>
+
+</body>
+</html>

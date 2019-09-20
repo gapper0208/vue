@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+<link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+	<div id="app">
+		<div class="form-inline">
+			<label>
+				id:<input type="text" class="form-controll" v-model="id" />
+			</label>
+			<label>
+				name:<input type="text" class="form-controll" v-model="name" />
+			</label>
+			<label>
+				birthday:<input type="text" class="form-controll" v-model="birthday" />
+			</label>
+			<label>
+				money:<input type="text" class="form-controll" v-model="money" />
+			</label>
+			<a class="btn btn-primary" @click="add">添加</a>
+			
+			
+			<label>
+				keyword:<input type="text" v-model="keyword" /><a class="btn btn-primary">search</a>
+			</label>
+		</div>
+		
+		<div>
+			<table class="table table-bordered table-hover table-striped">
+				<tr>
+					<th>id</th>
+					<th>name</th>
+					<th>birthday</th>
+					<th>money</th>
+					<th>operation</th>
+				</tr>
+				<tr v-for="item in search(keyword)">
+					<td>{{item.id}}</td>
+					<td>{{item.name}}</td>
+					<td>{{item.birthday|df}}</td>
+					<td>{{item.money}}</td>
+					<td><a class="btn btn-warning" @click="del(item.id)">删除</a></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<script>
+		Vue.filter('df',function(dataStr) {
+			var dd = new Date(dataStr);
+			var y = dd.getFullYear();
+			var m = dd.getMonth() + 1;
+			var d = dd.getDate();
+			return `${y}-${m}-${d}`;
+		});
+	
+		var vm = new Vue({
+			el:"#app",
+			data:{
+				id:'',
+				name:'',
+				birthday:'',
+				money:'',
+				keyword:'',
+				list:[
+					{id:1,name:'张珊珊', birthday:new Date(),money:300},
+					{id:2,name:'李师师', birthday:new Date(0),money:400},
+					{id:3,name:'王文文', birthday:new Date(1999,1,2),money:500},
+					{id:4,name:'赵乐乐', birthday:new Date(),money:600},
+					{id:5,name:'马琪琪', birthday:new Date(),money:700}
+				]
+			},
+			methods:{
+				add() {
+					var obj = {id:this.id,name:this.name,birthday:this.birthday,money:this.money};
+					this.list.push(obj);
+				},
+				del(id) {
+					this.list.some((item,i)=>{
+						if(item.id == id) {
+							this.list.splice(i,1);
+							return true;
+						}
+					});
+				},
+				search(keyword) {
+					return this.list.filter(item => {
+						if(item.name.includes(keyword)) {
+							return item;
+						}
+					});
+				}
+			}
+		});
+	</script>
+</body>
+</html>

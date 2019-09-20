@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+</head>
+<body>
+	<div  id="app">
+		<p>{{msg}}</p>
+		
+		<button @click="lang()">浪起来</button>
+		<button @click="stop()">别浪</button>
+	</div>	
+	
+	<script>
+		var vm = new Vue({
+			el:"#app",
+			data: {
+				msg:'好好学习，天天向上，别浪~',
+				intervalId:null
+			},
+			methods: {
+				lang() {
+					if(this.intervalId != null) return;
+					
+					this.intervalId = setInterval(() => {
+						this.msg = this.msg.substring(1) + this.msg.substring(0,1);	
+					},100);
+				},
+				stop() {
+					clearInterval(this.intervalId);
+					this.intervalId = null;
+				}
+			}
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+<script src="https://cdn.bootcss.com/vue-router/3.1.3/vue-router.min.js"></script>
+</head>
+<body>
+	<!-- 一个键盘事件相关的例子  -->
+	 <div id="app">
+	 	firstname: <input type="text" v-model="firstname" @keyup="showFullname" />
+	 	lastname: <input type="text" v-model="lastname" @keyup="showFullname" /> 
+	 	fullname: <input type="text" v-model="fullname"  />
+	 </div>
+	 <script>
+	 	var app = new Vue({
+	 		el:"#app",
+	 		data: {
+	 			firstname:'',
+	 			lastname:'',
+	 			fullname:''
+	 		},
+	 		methods: {
+	 			showFullname() {
+	 				// 每当在input框中键盘弹起，就会触发事件处理函数，在该函数中，会拼接全名
+	 				this.fullname = this.firstname + " " + this.lastname;
+	 			}
+	 		}
+	 	});
+	 </script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+</head>
+<body>
+	<!-- 
+		那么子组件到底如何才能访问到父组件的方法呢？ 要按以下的步骤来解决：
+	-->
+	<div id="app">
+		<!-- 1. 在子组件对应的元素上，绑定一个自定义事件，这里的自定义事件的名字是“func” -->
+		<foo @func="f1"></foo>
+	</div>
+	
+	<template id="foo">
+		<!-- 2. 在子组件的模板中，就不在直接访问父组件的"f1"方法了，而是直接访问子组件自己的"abc"方法 -->
+		<h3 @click="abc">andy</h3>
+	</template>
+	
+	<script>
+		var app = new Vue({
+			el:"#app",
+			methods: {
+				f1() {
+					console.log("父组件 f1");
+				}
+			},
+			components: {
+				"foo": {
+					template: "#foo",
+					methods: {
+						abc() {
+							console.log("子组件 abc");
+							/*
+								3. 在子组件自己的方法中“触发”在子组件元素上自定义的事件，
+								恰恰是触发了自定义事件，才引起了父组件的方法的调用！
+								
+								如此，子组件就间接地访问到了父组件的方法
+							*/
+							this.$emit("func");
+						
+						}
+					}
+				}
+			}
+			
+		});
+	</script>
+</body>
+</html>

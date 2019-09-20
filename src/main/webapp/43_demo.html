@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+</head>
+<body>
+	<!-- 发表评论案例 -->
+	<div id="app">
+		<comment-box  @func="showList"></comment-box>
+		<ul>
+			<li v-for="item in list" :key="item.id">
+				评论人: {{item.name}}  {{item.content}}
+			</li>
+		</ul>
+	</div>
+	
+	<template id="commentBox">
+		<div>
+			评论人：<input type="text" v-model="name" /> <br />
+			评论内容：<textarea v-model="content"></textarea> <br />
+			<button type="button" @click="pub">发表评论</button>
+		</div>
+	</template>
+	
+	<script>
+		var commentBox = {
+				template: "#commentBox",
+				data() {
+					return {
+						name:'',
+						content:''
+					}
+				},
+				methods: {
+					pub() {
+						// console.log("pub...");
+						// 评论数据存到localStorage
+						var comment = {name:this.name, content:this.content};
+	                    var list = JSON.parse(localStorage.getItem("comments") || "[]");
+	                    comment.id = list.length + 1;
+	                    list.unshift(comment);
+	                    localStorage.setItem("comments", JSON.stringify(list));
+	                    this.name = this.content = '';
+	                    
+	                    this.$emit("func");
+					}
+				}
+		}
+	
+		var app = new Vue({
+			el: "#app",
+			created() {
+				this.showList();
+			},
+			data: {
+				list: [
+					{id: 1, name: "张珊珊", content: "道可道，非常道"},
+                    {id: 2, name: "李师师", content: "名可名，非常名"},
+                    {id: 3, name: "王文文", content: "无名，万物之始"}
+				]
+			},
+			methods: {
+				showList() {
+                    var list = JSON.parse(localStorage.getItem("comments") || "[]");
+                    this.list = list;
+                }
+			},
+			components: {
+				'commentBox':commentBox
+			}
+		});
+	</script>
+</body>
+</html>

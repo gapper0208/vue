@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+<script src="https://cdn.bootcss.com/vue-router/3.1.3/vue-router.min.js"></script>
+</head>
+<body>
+	<!-- 
+		使用child属性实现路由嵌套
+	 -->
+	 <div id="app">
+	 	<router-link to="/user">用户管理</router-link>
+	 	<router-view></router-view>
+	 </div>
+	 <template id="user">
+	 	<div>
+	 		<h3>用户管理组件</h3>
+	 		<router-link to="/user/login">用户登录</router-link>
+	 		<router-link to="/user/register">用户注册</router-link>
+	 		<router-view></router-view>
+	 	</div>
+	 </template>
+	 
+	 <script>
+	 	var user = {
+	 		template: "#user"	
+	 	};
+	 	var login = {
+	 		template: '<h3>登录组件</h3>'	
+	 	};
+	 	var register = {
+	 		template: '<h3>注册组件</h3>'	
+	 	};
+	 	/*
+	 		可以看出，我们是使用children属性，实现子路由的。
+			注意子路由的path属性值前面不能加“/”，否则会以根路径请求，这样不方便用户去理解url地址与组件的关系！
+	 	*/
+	 	var router = new VueRouter({
+	 		routes: [
+	 			{
+	 				path:"/user", component:user, children: [
+	 					{path:"login", component: login},
+	 					{path:"register", component: register}
+	 				]
+	 			}
+	 		]
+	 	});
+	 	
+	 	var app = new Vue({
+	 		el:"#app",
+	 		router:router
+	 	});
+	 </script>
+</body>
+</html>

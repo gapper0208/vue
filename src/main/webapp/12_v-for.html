@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+</head>
+<body>
+	<div id="app">
+		id: <input type="text" size="5" v-model="id" /> 
+		name: <input type="text" size="5" v-model="name" /> 
+		<button @click="add">add</button>
+		<div v-for="item in list" :key="item.id">
+			<input type="checkbox" /> {{item.id}} {{item.name}}
+		</div>
+	</div>
+	<script>
+		var vm = new Vue({
+			el:"#app",
+			id:null,
+			name:null,
+			data:{
+				list:[
+					{id:1,name:'关羽'},
+					{id:2,name:'张飞'},
+					{id:3,name:'赵云'},
+					{id:4,name:'马超'},
+					{id:5,name:'黄忠'}
+				]
+			},
+			methods: {
+				add() {
+					// this.list.push({id:this.id,name:this.name});
+					this.list.unshift({id:this.id,name:this.name});
+				}
+			}
+		});
+	</script>
+</body>
+</html>

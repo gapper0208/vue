@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+</head>
+<body>
+
+	<div id="app">
+		<my-component></my-component>
+		<my-component></my-component>
+		<my-component></my-component>
+	</div>
+
+	<script>
+		// 创建组件的方式二：
+		Vue.component("myComponent", {
+			template: "<h3>东方不败，千秋万代，一统江湖</h3>"
+		});
+		
+		var app = new Vue({
+			el:"#app"
+		});
+		
+		// 注意，在我们创建Vue组件时，无论使用哪种方式，都必须保证组件只要一个根元素，否则就会报错，如下：
+		/*
+		// can't compile
+		Vue.component("myComponent", {
+			template: "<h3>东方不败，千秋万代，一统江湖</h3><h3>丁春秋</h3>"
+		});
+		*/
+		
+		// 如果非要为一个组件定义多个元素，可以在最外层套一个根元素，如下：
+		/*
+		Vue.component("myComponent", {
+			template: "<div><h3>东方不败，千秋万代，一统江湖</h3><h3>丁春秋</h3></div>"
+		});
+		*/
+		
+	</script>
+
+</body>
+</html>

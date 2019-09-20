@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+</head>
+<body>
+	<!-- 
+		私有过滤器的定义与使用 
+		
+		如果私有过滤器与全局过滤器的名称冲突了，则优先使用私有过滤器。
+	-->
+	
+	<div id="app">
+	
+		<p>{{msg|foo}}</p>
+		
+	</div>
+	
+	<div id="app2">
+		
+		<!-- foo是app的私有过滤器，所以这里无法使用。 -->
+		<p>{{msg|foo}}</p>
+		
+	</div>
+	
+	<script>
+	
+		var vm = new Vue({
+			el:"#app",
+			data:{
+				msg:'张珊珊'
+			},
+			filters:{
+				foo:function(data) {
+					return data + "~~~";
+				}
+			}
+		});
+		
+		var vm2 = new Vue({
+			el:"#app2",
+			data:{
+				msg:'馒头酱'
+			}
+		});
+		
+	</script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+<script src="https://cdn.bootcss.com/vue-router/3.1.3/vue-router.min.js"></script>
+</head>
+<body>
+	<!--
+		Vue实例的data属性中的数据，都可以被watch属性监听，每当watch属性监听的数据变化了，就会触发数据对应的处理函数，如下:
+	-->
+	 <div id="app">
+	 	firstname: <input type="text" v-model="firstname"  />
+	 	lastname: <input type="text" v-model="lastname"  /> 
+	 	fullname: <input type="text" v-model="fullname"  />
+	 </div>
+	 <script>
+	 	var app = new Vue({
+	 		el:"#app",
+	 		data: {
+	 			firstname:'',
+	 			lastname:'',
+	 			fullname:''
+	 		},
+	 		watch: {
+	 			firstname:function() {
+	 				this.fullname = this.firstname + ' ' + this.lastname;
+	 			},
+	 			lastname:function() {
+	 				this.fullname = this.firstname + ' ' + this.lastname;
+	 			}
+	 		}
+	 	});
+	 </script>
+</body>
+</html>

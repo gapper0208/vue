@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+</head>
+<body>
+	<div id="app">
+		<!-- 没有v-for的日子里 -->
+		<div>
+			<p>{{list[0]}}</p>
+			<p>{{list[1]}}</p>
+			<p>{{list[2]}}</p>
+			<p>{{list[3]}}</p>
+			<p>{{list[4]}}</p>
+		</div>
+		
+		<hr />
+		
+		<!-- 使用v-for遍历普通数组 -->
+		<div>
+			<p v-for="item in list">{{item}}</p>
+		</div>
+		
+		<hr />
+		
+		<!-- 使用v-for遍历普通数组，带下标 -->
+		<div>
+			<p v-for="(item,i) in list">第{{i+1}}个元素：{{item}}</p>
+		</div>
+		
+		<hr />
+		
+		<!-- 使用v-for遍历数组对象 -->
+		<div>
+			<p v-for="user in list2">{{user.id}} - {{user.name}}</p>
+		</div>
+		
+		<hr />
+		
+		<!-- 使用v-for遍历数组对象，带下标 -->
+		<div>
+			<p v-for="(user,index) in list2">{{user.id}} - {{user.name}} --- index: {{index}}</p>
+		</div>
+		
+		<hr />
+		
+		<!-- 使用v-for遍历对象的属性 -->
+		<div>
+			<p v-for="(v,k,i) in user">{{k}}: {{v}} --- {{i}}</p>
+		</div>
+		
+		<hr />
+		
+		<!-- 使用v-for迭代数字，注意次数数字是从1开始的，而不是从0开始的 -->
+		<div>
+			<p v-for="i in 5">{{i}}</p>
+		</div>
+	</div>
+	<script>
+		var vm = new Vue({
+			el:"#app",
+			data:{
+				list:[11,22,33,44,55],
+				list2:[
+					{id:101,name:'斑点狗'},
+					{id:102,name:'加菲猫'},
+					{id:103,name:'狮子王'}
+				],
+				user: {
+					id:9527,
+					name:'周星星',
+					nick:'星爷'
+				}
+			}
+		});
+	</script>
+</body>
+</html>

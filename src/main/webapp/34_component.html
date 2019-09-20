@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+</head>
+<body>
+
+	<!-- Vue组件也可以有自己的methods -->
+	<div id="app">
+		<my-component></my-component>
+	</div>
+	
+	<template id="foo">
+		<div>
+			<button type="button" @click="increment">点点</button>
+			<h4>{{counter}}</h4>
+		</div>
+	</template>
+
+	<script>
+		
+		var app = new Vue({
+			el:"#app",
+			components: {
+				"myComponent": {
+					template: "#foo",
+					data: function() {
+						return {
+							counter: 0
+						}
+					},
+					methods: {
+						increment() {
+							this.counter++;
+						}
+					}
+				}
+			}
+		});
+		
+	</script>
+
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+</head>
+<body>
+	<!-- 
+		使用Vue实例的refs属性来引用子组件的意义在于，
+		可以进而访问子组件的data中的数据！！当然也包括子组件的方法！！
+	 -->
+	<div id="app">
+		<button type="button" @click="f1">点点</button>
+		<login ref="ll"></login>
+	</div>	
+	
+	<template id="foo">
+		<div>
+			登录组件
+		</div>
+	</template>
+	
+	<script>
+		var login = {
+			template: "#foo",
+			data() {
+				return {
+					msg: "Going Home"
+				};
+			},
+			methods: {
+				aa() {
+					console.log("子组件 aa");
+				}
+			}
+		};
+	
+		var app = new Vue({
+			el:"#app",
+			methods: {
+				f1() {
+					console.log(this.$refs.ll.msg);
+					this.$refs.ll.aa();
+				}
+			},
+			components: {
+				"login":login
+			}
+		});
+	</script>
+</body>
+</html>

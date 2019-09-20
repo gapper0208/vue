@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+<script src="https://cdn.bootcss.com/vue-router/3.1.3/vue-router.min.js"></script>
+</head>
+<body>
+	<!--
+		watch属性中所监听的data数据所有对应的function还可以接收2个参数：新值和旧值，如此我们还可以这样改写例子：
+	-->
+	 <div id="app">
+	 	firstname: <input type="text" v-model="firstname"  />
+	 	lastname: <input type="text" v-model="lastname"  /> 
+	 	fullname: <input type="text" v-model="fullname"  />
+	 </div>
+	 <script>
+	 	var app = new Vue({
+	 		el:"#app",
+	 		data: {
+	 			firstname:'',
+	 			lastname:'',
+	 			fullname:''
+	 		},
+	 		watch: {
+	 			firstname:function(newVal, oldVal) {
+	 				this.fullname = newVal + ' ' + this.lastname;
+	 			},
+	 			lastname:function(newVal, oldVal) {
+	 				this.fullname = this.firstname + ' ' + newVal;
+	 			}
+	 		}
+	 	});
+	 </script>
+</body>
+</html>

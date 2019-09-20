@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+</head>
+<body>
+
+	<!-- 创建Vue实例的私有组件 -->
+	<div id="app">
+		<my-component></my-component>
+	</div>
+	
+	<template id="foo">
+		<div>
+			<h3>天下大事必作于细</h3>
+			<h3>天下难事必作于易</h3>
+		</div>
+	</template>
+
+	<script>
+		
+		var app = new Vue({
+			el:"#app",
+			components: {
+				"myComponent": {
+					template: "#foo"
+				}
+			}
+		});
+		
+	</script>
+
+</body>
+</html>

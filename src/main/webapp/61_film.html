@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+<script src="https://cdn.bootcss.com/vue-resource/1.5.1/vue-resource.min.js"></script>
+<style>
+	.has { width:30px; height:30px; background-color:#00b9f1; cursor:pointer;}
+	.no { width:30px; height:30px; background-color:#ccc; cursor:pointer;}
+</style>
+</head>
+<body>
+	<div id="app">
+		<table>
+			<tr v-for="(row,i) in seats">
+				<td v-for="(col,j) in row" :class="col == 1 ? 'has' : 'no'" @click="toggle(i,j)">
+				</td>
+			</tr>
+		</table>
+		
+		<button type="submit" @click="go">确认</button>
+	</div>
+	
+	<script>
+		var vue = new Vue({
+			el:"#app",
+			data: {
+				// 0 表示空位置， 1表示有人
+				seats: [
+					[0,0,0,0,0,0,0,0,0,0],
+					[0,0,0,0,0,0,0,0,0,0],
+					[0,0,0,0,0,0,0,0,0,0],
+					[0,0,0,0,0,0,0,0,0,0],
+					[0,0,0,0,0,0,0,0,0,0],
+					[0,0,0,0,0,0,0,0,0,0],
+					[0,0,0,0,0,0,0,0,0,0],
+					[0,0,0,0,0,0,0,0,0,0],
+					[0,0,0,0,0,0,0,0,0,0],
+					[0,0,0,0,0,0,0,0,0,0]
+				]
+			},
+			created() {
+				// 一进入页面，就要把数据库中存好的座位信息，显示到页面上
+			},
+			methods: {
+				toggle(i,j) {
+					var copyArr = this.seats.slice();
+					copyArr[i][j] = copyArr[i][j] == 1 ? 0 : 1;
+					this.seats = copyArr;
+				},
+				go() {
+					console.log("go...");
+					
+					
+					var order_seats = [];
+					
+					// 把那些已经被占的座位的坐标，存入这个order_seats中。
+					
+					for(i in this.seats) {
+						for(j in this.seats[i]) {
+							if(this.seats[i][j] == 1) {
+								order_seats.push({row:i,col:j});
+							}
+						}
+					}
+					
+					// 次数应该把选好的作为的坐标集合，发送给后端程序。        
+				}
+			}
+		});
+	
+		
+	</script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+﻿<!-- 
+	1. 动画的钩子函数，也可以称为动画的生命周期函数
+	2. 以下是可以在属性中声明的JavaScript钩子
+	<transition
+		v-on:before-enter="beforeEnter"
+		v-on:enter="enter"
+		v-on:after-enter="afterEnter"
+		v-on:enter-cancelled="enterCancelled"
+		
+		v-on:before-leave="beforeLeave"
+		v-on:leave="leave"
+		v-on:after-leave="afterLeave"
+		v-on:leave-cancelled="leaveCancelled"
+	>
+	</transition>
+ -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+<link href="https://cdn.bootcss.com/animate.css/3.7.2/animate.min.css" rel="stylesheet">
+<style>
+	.ball {
+		width:15px;
+		height:15px;
+		border-radius:50%;
+		background-color:#00b9f1;
+	}
+</style>
+</head>
+<body>
+	
+	<div id="app">
+		<button @click="flag=!flag">点点</button>
+		
+		<transition
+			@before-enter="beforeEnter"
+			@enter="enter"
+			@after-enter="afterEnter"
+		>
+			<div class="ball" v-show="flag"></div>
+		</transition>
+		
+	</div>
+	<script>
+		var vue = new Vue({
+			el:"#app",
+			data: {
+				flag:false
+			},
+			methods: {
+				// 动画钩子函数的第一个参数，就是要执行动画的那个DOM元素，而且是元素DOM对象
+				beforeEnter(el) {
+					// beforeEnter 表示动画开始之前，此时动画并没有开始，可以在此函数中，设置元素的初始样式
+					console.log("beforeEnter");
+					el.style.transform = "translate(0,0)";
+				},
+				enter(el, done) {
+					console.log("enter");
+					// 必须添加该代码，否则无法执行动画，尽管该行代码在“逻辑上”没有任何实际的作用！
+					el.offsetLeft;
+					// enter表示动画开始之后的样式，在这里可以设置动画的目标状态
+					el.style.transition = "all 1s ease";
+					el.style.transform = "translate(150px,450px)";
+					
+					// 注意，在本例中，afterEnter的执行时机有点慢，也就是在动画完成后，afterEnter并没有立即执行，而是延迟了一小会。
+					// 这个以参数形式传进来的done函数，其实就是afterEnter函数！这样，就能在动画完成后，立即执行afterEnter了！
+					done();
+				},
+				afterEnter(el) {
+					console.log("afterEnter");
+					this.flag = !this.flag;
+				}
+			}
+		});
+	</script>	
+</body>
+</html>

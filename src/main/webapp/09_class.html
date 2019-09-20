@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+<style>
+	.foo {color:#fff;}
+	.bar {background-color:#8ab42e;}
+	.baz {border:#00b9f1 solid 5px;}
+</style>
+</head>
+<body>
+	<div id="d1" >
+		<!-- 第一种方式：数组形式。 注意，样式名必须使用单引号引起来，否则Vue会认为是Vue实例的属性 -->
+		<p :class="['foo','bar']">
+			魔鬼中的天使
+		</p>
+		<!-- 第二种方式：使用三元表达式 -->
+		<p :class="['foo','bar', flag?'baz':'']">
+			沙漠骆驼
+		</p>
+		<!-- 第三种方式：使用json对象 -->
+		<p :class="['foo','bar', {'baz':flag}]">
+			Gotta Have You
+		</p>
+		<!-- 第四种方式：使用json对象，控制所有样式 -->
+		<p :class="{foo:true,bar:true,baz:true}">
+			天下有情人
+		</p>
+	</div>
+	<script>
+		var vm = new Vue({
+			el:"#d1",
+			data:{
+				flag:true
+			}
+		});
+	</script>
+</body>
+</html>

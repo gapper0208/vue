@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+<style>
+	.v-enter,.v-leave-to {
+		opacity:0;
+		transform:translateX(150px);
+	}
+	.v-enter-to,.v-leave {
+		opacity:1;
+		transform:translateX(0px);
+	}
+	.v-enter-active,.v-leave-active {
+		transition: all .6s ease;
+	}
+</style>
+</head>
+<body>
+	<!-- 
+		为组件切换添加切换动画 ,本例与上一个例子代码几乎一致，
+		1. 多加了动画的样式
+		2. 为component元素加上了父元素transition
+	-->
+	<div id="app">
+		<a @click.prevent="componentName='loginComponent'">登录按钮</a>
+		<a @click.prevent="componentName='registerComponent'">注册按钮</a>
+		<a @click.prevent="componentName='photoComponent'">个人相册</a>
+		<transition mode="out-in">
+			<component :is="componentName"></component>
+		</transition>
+	</div>
+	
+	<template id="loginUI">
+		<div>登录界面</div>
+	</template>
+	<template id="registerUI">
+		<div>注册界面</div>
+	</template>
+	<template id="photoUI">
+		<div>相册界面</div>
+	</template>
+
+	<script>
+		var app = new Vue({
+			el:"#app",
+			data: {
+				componentName:'loginComponent'
+			},
+			components: {
+				"loginComponent": {
+					template: "#loginUI"
+				},
+				"registerComponent": {
+					template: "#registerUI"
+				},
+				"photoComponent": {
+					template: "#photoUI"
+				}
+			}
+		});
+	</script>
+
+</body>
+</html>

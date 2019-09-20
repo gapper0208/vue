@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+</head>
+<body>
+	<div id="app">
+		<!-- 方式一 -->
+		<p v-bind:style="{color:'red','font-size':'30px'}">这是一个p</p>
+		
+		<!-- 方式二 -->
+		<p v-bind:style="styleObj1">这是一个p</p>
+		
+		<!-- 方式三 -->
+		<p v-bind:style="[styleObj1,styleObj2]">这是一个p</p>
+	</div>
+	<script>
+		var vm = new Vue({
+			el:"#app",
+			data: {
+				styleObj1:{'color':'lightgreen','font-size':'30px'},
+				styleObj2:{'border':'#000 solid 1px'}
+			}
+		});
+		
+	</script>
+</body>
+</html>

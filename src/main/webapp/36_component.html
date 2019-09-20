@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+</head>
+<body>
+
+	<!-- 
+		使用Vue为我们预留的component元素，搭配:is属性，既可使用组件, 
+		由此，便有了组件切换的第二种方式 ，这种方式适合与超过2个的组件的切换。
+	-->	
+	<div id="app">
+		<a @click.prevent="componentName='loginComponent'">登录按钮</a>
+		<a @click.prevent="componentName='registerComponent'">注册按钮</a>
+		<a @click.prevent="componentName='photoComponent'">个人相册</a>
+		<component :is="componentName"></component>
+	</div>
+	
+	<template id="loginUI">
+		<div>登录界面</div>
+	</template>
+	<template id="registerUI">
+		<div>注册界面</div>
+	</template>
+	<template id="photoUI">
+		<div>相册界面</div>
+	</template>
+
+	<script>
+		var app = new Vue({
+			el:"#app",
+			data: {
+				componentName:'loginComponent'
+			},
+			components: {
+				"loginComponent": {
+					template: "#loginUI"
+				},
+				"registerComponent": {
+					template: "#registerUI"
+				},
+				"photoComponent": {
+					template: "#photoUI"
+				}
+			}
+		});
+	</script>
+
+	<!-- 
+		迄今为止，我们接触到了以下4个Vue为我们提供的元素
+		1. component
+		2. template
+		3. transition
+		4. transition-group
+	 -->
+</body>
+</html>

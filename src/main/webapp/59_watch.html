@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+<script src="https://cdn.bootcss.com/vue-router/3.1.3/vue-router.min.js"></script>
+</head>
+<body>
+	<!--
+		讨论
+			1. 在使用watch的例子中，我们发现，使用keyup事件和watch属性，都能达到相同的效果。
+			2. 但是对于那些在页面上无法显示的，或者无法接收键盘输入的数据，则只能使用watch来监视其变化了！比如，路由地址的变化！
+	-->
+	 <div id="app">
+	 	<router-link to="/t1">A</router-link>
+	 	<router-link to="/t2">B</router-link>
+	 	<router-view></router-view>
+	 </div>
+	 <script>
+	 	var t1 = {
+	 		template: "<h3>逍遥游</h3>"	
+	 	};
+	 	var t2 = {
+	 		template: "<h3>道德经</h3>"	
+	 	};
+	 	var router = new VueRouter({
+	 		routes: [
+	 			{path:"/t1", component: t1},
+	 			{path:"/t2", component: t2}
+	 		]
+	 	});
+	 	var app = new Vue({
+	 		el:"#app",
+	 		router,
+	 		watch: {
+	 			'$route.path':function(newVal, oldVal){
+	 				console.log(newVal + " --- " + oldVal);
+	 				// 进一步，我们可以根据路由地址的变化，而写出自己特定的逻辑
+	 				if("/t1" == newVal) {
+	 					console.log("人有悲欢离合");
+	 				} else if("/t2" ==  newVal) {
+	 					console.log("月有阴晴圆缺");
+	 				}
+	 			}
+	 		}
+	 	});
+	 </script>
+</body>
+</html>

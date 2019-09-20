@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+<script src="https://cdn.bootcss.com/vue-router/3.1.3/vue-router.min.js"></script>
+<style>
+	.router-link-active {
+		background-color:#abcdef;
+		color:#f00;
+	}
+</style>
+</head>
+<body>
+	<!-- 
+		我们已经知道，<router-link>会被渲染为a元素，
+		而被选中的a元素上，会有一个特定的样式：.router-link-active 
+		
+		进而我们就可以通过为这个特定的样式名编辑css属性，
+		就可以达到“高亮显示当前选中的组件对应的选项”的效果
+	 -->
+	<div id="app">
+		<router-link to="/login">登录</router-link>
+		<router-link to="/register">注册</router-link>
+		<router-view></router-view>
+	</div>	
+
+	<script>
+		var login = {
+			template: "<h3>登录组件</h3>"	
+		};
+		var register = {
+			template: "<h3>注册组件</h3>"	
+		};
+		var routerObj = new VueRouter({
+			routes: [
+				{path:'/', component: login},
+				{path:"/login",component: login},
+				{path:"/register",component: register}
+			]
+		});
+		
+		var app = new Vue({
+			el:"#app",
+			data:{},
+			methods:{},
+			router:routerObj	
+		});
+	</script>
+</body>
+</html>

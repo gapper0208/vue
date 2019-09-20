@@ -1,0 +1,63 @@
+<!-- 
+	路由是什么
+		通俗来讲解，路由就是选择。
+	
+	后端路由：
+		对于网站而言，所有的超链接都是URL地址，所有的URL地址都对应服务器上对应的资源
+	
+	前端路由：
+		对于单页面应用程序来说，主要通过URL中的hash（#号）来实现不同页面之间的切换。
+		注意，hash有一个特点：HTTP请求中不会包含hash相关的内容；
+		所以单页面程序中的页面跳转主要用hash来实现；
+		在单页面应用程序中，这种通过hash的改变来切换页面的方式，称作前端路由
+ -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<!-- 安装vue-router，直接在页面中导入vue-router.js即可，注意必须在导入vue.js之后导入vue-router.js -->
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+<!-- 当导入 vue-router.js 之后，在 window 全局对象中，就有了一个路由的构造器，叫做VueRouter！ -->
+<script src="https://cdn.bootcss.com/vue-router/3.1.3/vue-router.min.js"></script>
+</head>
+<body>
+	
+	<div id="app">
+		<!-- 
+			4. 在Vue实例绑定的元素中，加入一个元素：router-view 
+			  vue-router就是一个占位符，将来根据路由规则匹配到的组件，就会被展示到这里！
+			  
+			5. 在浏览器中输入url来测试：http://localhost/xxx.html#/register
+		-->
+		<router-view></router-view>
+	</div>	
+
+	<script>
+		// 1. 先创建两个Vue组件
+		var login = {
+			template: "<h3>登录组件</h3>"	
+		};
+		var register = {
+			template: "<h3>注册组件</h3>"	
+		};
+		// 2.再创建一个路由对象，在创建路由对象时，要为构造器传入一个配置对象：
+		var routerObj = new VueRouter({
+			// routes属性是用来定义“路由匹配规则”的
+			routes: [
+				{path:"/login",component: login},
+				{path:"/register",component: register},
+			]
+		});
+		
+		// 3. 然后让Vue实例和上面创建好的VueRouter实例发生关系！
+		var app = new Vue({
+			el:"#app",
+			data:{},
+			methods:{},
+			// 为Vue实例注册路由实例！
+			router:routerObj	
+		});
+	</script>
+</body>
+</html>

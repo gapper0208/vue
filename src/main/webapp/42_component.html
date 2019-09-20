@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+</head>
+<body>
+	<!-- 当子组件访问父组件的方法时，需要给父组件的方法传参怎么办？如下 -->
+	<div id="app">
+		<foo @func="f1"></foo>
+	</div>
+	
+	<template id="foo">
+		<h3 @click="abc">andy</h3>
+	</template>
+	
+	<script>
+		var app = new Vue({
+			el:"#app",
+			methods: {
+				// 注意，此时的父组件的f1方法是需要接收参数的
+				f1(data, data2) {
+					console.log(`父组件 f1 ${data} ${data2}`);
+				}
+			},
+			components: {
+				"foo": {
+					template: "#foo",
+					data: function() {
+						return {
+							msg: "福祸无门，惟人自召",
+							msg2: "人为善福虽未至祸已远离"
+						};
+					},
+					methods: {
+						abc() {
+							console.log("子组件 abc");
+							/*
+								$emit方法的第一个参数是要触发的事件名字，
+								而从第二个参数开始，就是要传递给事件处理函数的参数了！
+							*/
+							this.$emit("func", "Good", "Boy");
+							
+							/*
+								我们已经知道，子组件的data，父组件是无法直接访问的，
+								但是我们可以利用“子组件访问父组件方法”的方式，顺便地把子组件的属性传给父组件的方法，如下：
+							*/
+							this.$emit("func", this.msg, this.msg2);
+							
+						}
+					}
+				}
+			}
+			
+		});
+	</script>
+</body>
+</html>

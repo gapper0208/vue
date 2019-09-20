@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+<style>
+	ul li {list-style-type:none;}
+	.v-enter {
+		opacity: 0;
+		transform: translate(80px);
+	}
+	.v-enter-to {
+		opacity: 1;
+		transform: translate(0px);
+	}
+	.v-enter-active {
+		transition: all .6s ease;
+	}
+	
+	
+</style>
+</head>
+<body>
+	<!-- 使用transition-group元素实现列表动画 -->
+	<div id="app">
+		<div>
+			id: <input type="text" v-model="id" >			
+			name: <input type="text" v-model="name" >
+			<button type="button" @click="add">添加</button>
+		</div>
+		
+		<ul>
+			<!-- 为使用v-for的元素添加动画，必须使用transition-group元素 -->
+			<transition-group>
+				<!-- 使用transition-group时，其中的元素必须指定:key属性 -->
+				<li v-for="item in list" :key="item.id" >
+					{{item.id}} -- {{item.name}}
+				</li>
+			</transition-group>
+		</ul>
+	</div>
+	<script>
+		var vue = new Vue({
+			el:"#app",
+			data: {
+				id:'',
+				name:'',
+				list:[
+					{id:1,name:"关羽"},
+					{id:2,name:"张飞"},
+					{id:3,name:"赵云"},
+					{id:4,name:"马超"},
+					{id:5,name:"黄忠"}
+				]
+			},
+			methods: {
+				add() {
+					this.list.push({id:this.id, name:this.name});
+				}
+			}
+		});
+	</script>	
+</body>
+</html>

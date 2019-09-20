@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+</head>
+<body>
+	<div  id="app">
+		<!-- 当我们想要把模型中的属性，应用到元素的属性上时，发现时无效的 -->
+		<p title="{{mytitle}}">{{msg}} {{mytitle}}</p>
+		
+		<!-- 使用“v-bind:”可以把模型的属性，应用到元素的属性上，注意此时不用写出{{ }}这个符号 -->
+		<p v-bind:title="mytitle">{{msg}} {{mytitle}}</p>
+		<!-- “v-bind:” 支持js表达式 -->
+		<p v-bind:title="mytitle + '!!!' + 2*3">{{msg}} {{mytitle}}</p>
+		
+		<!-- “v-bind:”可以被简写为“:” -->
+		<p :title="mytitle + new Date()">{{msg}} {{mytitle}}</p>
+		
+	</div>	
+	
+	
+	<script>
+		var vm = new Vue({
+			el:"#app",
+			data: {
+				msg:'你要的全拿走!',
+				mytitle:'胡彦斌'
+			}
+		});
+	</script>
+</body>
+</html>

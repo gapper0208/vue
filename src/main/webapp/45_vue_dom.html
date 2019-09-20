@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+</head>
+<body>
+	<div id="app">
+		<button type="button" @click="f1">点点</button>
+		<!-- 1. 为DOM元素设置一个ref属性，该属性是Vue自定义的属性！ -->
+		<h3 ref="hh">Good Boy</h3>
+	</div>	
+	<script>
+		var app = new Vue({
+			el:"#app",
+			methods: {
+				f1() {
+					// 2. 通过以下的api来获取DOM元素
+					var str = this.$refs.hh.innerHTML;
+					console.log(str + "!!!");
+					/*
+						注意：
+						this代表app对象本身，在访问app对象本身的属性时，必须在前面加上"$"
+						在访问app的data属性中的属性时，才可以不用加"$"
+					*/
+				}
+			}
+		});
+	</script>
+</body>
+</html>

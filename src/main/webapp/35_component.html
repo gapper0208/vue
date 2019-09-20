@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+</head>
+<body>
+
+	<!-- 组件切换 -->	
+	<div id="app">
+		<a @click.prevent="flag=true">登录按钮</a>
+		<a @click.prevent="flag=false">注册按钮</a>
+		<login-component v-if="flag"></login-component>
+		<register-component v-else="flag"></register-component>
+	</div>
+	
+	<template id="loginUI">
+		<div>登录界面</div>
+	</template>
+	<template id="registerUI">
+		<div>注册界面</div>
+	</template>
+
+	<script>
+		var app = new Vue({
+			el:"#app",
+			data: {
+				flag:true
+			},
+			components: {
+				"loginComponent": {
+					template: "#loginUI"
+				},
+				"registerComponent": {
+					template: "#registerUI"
+				}
+			}
+		});
+	</script>
+
+</body>
+</html>
